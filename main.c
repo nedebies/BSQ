@@ -6,7 +6,7 @@
 /*   By: nesdebie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 20:59:58 by nesdebie          #+#    #+#             */
-/*   Updated: 2023/02/27 22:48:04 by nesdebie         ###   ########.fr       */
+/*   Updated: 2023/02/27 23:28:59 by nesdebie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,15 @@
 
 int ft_free(t_map *map, int i)
 {
+    int j;
+
+    j = 0;
+    if (i == -1)
+    {
+        while (map->array[j])
+            j++;
+        i = j;
+    }
     while (i >= 0)
     {
         free (map->array[i]);
@@ -36,10 +45,9 @@ int main(int ac, char **av)
             write (1, "Error\n", 6);
         else
         {
-            //malloc
             //solve
-            //print
-            //free
+            ft_print_map(map);
+            ft_free(map, -1);
         }
     }
     if (ac == 1)

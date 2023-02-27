@@ -6,7 +6,7 @@
 /*   By: nesdebie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 21:06:08 by nesdebie          #+#    #+#             */
-/*   Updated: 2023/02/27 22:50:28 by nesdebie         ###   ########.fr       */
+/*   Updated: 2023/02/27 23:36:51 by nesdebie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,16 +62,16 @@ static int  ft_check_lines(t_map *m)
     return (1);
 }
 
-static int  ft_set_params(int fd, t_map **map, char *buf, char *str)
+static int  ft_set_map(int fd, t_map **map, char *buf, char *str)
 {
     t_map           *m;
     unsigned int    i;
-    char            **arr;
+
     i = 0;
     m = malloc(sizeof(t_map));
     if (!m)
         return (0);
-    m->nb_line = ft_atoi(str, i);
+    m->nb_line = ft_atoi(str, &i);
     m->empty = str[i++] - '0';
     m->wall = str[i++] - '0';
     m->full = str[i] - '0';
@@ -112,7 +112,7 @@ static int  ft_set_params(int fd, t_map **map, char *buf, char *str)
         free (str);
         return (ft_free(m, i));
     }
-    if (!check_lines(m))
+    if (!ft_check_lines(m))
     {
         free (str);
         return (ft_free(m, i));
@@ -130,7 +130,7 @@ static int ft_check_params(char *str)
 
     i = 0;
     j = 0;
-    if (ft_atoi(str, i) == 0)
+    if (ft_atoi(str, &i) == 0)
         return (0);
     while (str[i + j])
     {
@@ -178,7 +178,7 @@ int ft_check_map(char *path, t_map **map)
 
     fd = open(path, O_RDWR);
     if (fd != -1)
-        if (ft_buffer(fd, map));
+        if (ft_buffer(fd, map))
             return (1);
     return (0);
 }

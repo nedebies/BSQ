@@ -1,38 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   ft_print_map.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nesdebie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/02/27 21:39:31 by nesdebie          #+#    #+#             */
-/*   Updated: 2023/02/27 23:37:12 by nesdebie         ###   ########.fr       */
+/*   Created: 2023/02/27 23:21:02 by nesdebie          #+#    #+#             */
+/*   Updated: 2023/02/27 23:28:46 by nesdebie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bsq.h"
 
-static int	ft_isdigit(int c)
+void    ft_print_map(t_map *map)
 {
-	if (c >= 48 && c <= 57)
-		return (1);
-	return (0);
-}
+    int i;
+    int j;
 
-unsigned int	ft_atoi(char const *str, unsigned int *i)
-{
-	unsigned int	res;
-	int				cpt;
-
-	res = 0;
-	i = 0;
-	cpt = 0;
-	while (ft_isdigit(str[*i]))
-	{
-		res = res * 10 + str[*i] - 48;
-		if (++cpt > 19)
-			return (0);
-		i++;
-	}
-	return (res);
+    i = 0;
+    while (map->array[i])
+    {
+        j = 0;
+        while (map->array[i][j])
+        {
+            write(1, &map->array[i][j], 1);
+            j++;
+        }
+        write (1, "\n", 1);
+        i++;
+    }
+    write (1, "\n", 1);
 }
