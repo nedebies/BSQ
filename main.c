@@ -41,6 +41,7 @@ int main(int ac, char **av)
     i = 1;
     while (i < ac)
     {
+
         if (!ft_check_map(av[i], &map))
             write (1, "Error\n", 6);
         else
@@ -49,6 +50,7 @@ int main(int ac, char **av)
             ft_print_map(map);
             ft_free(map, -1);
         }
+        i++;
     }
     if (ac == 1)
     {
@@ -59,5 +61,6 @@ int main(int ac, char **av)
         //print
         //free
     }
+    //system("leaks bsq");
     return (0);
 }

@@ -13,6 +13,8 @@
 #ifndef BSQ_H
 # define BSQ_H
 
+# include <stdio.h> // TO DEL
+
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdlib.h>

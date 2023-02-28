@@ -31,12 +31,13 @@ static char	*ft_addchar(char *str, char *buf)
 	free(str);
 	return (new);
 }
-
+/**
 static int  ft_only_valid_char(t_map *m, char *str)
 {
     int i;
 
     i = 0;
+    printf("%c\n%c\n%c\n", m->empty, m->full, m->wall);
     while (str[i])
     {
         if (str[i] != m->empty || str[i] != m->full || str[i] != m->wall)
@@ -60,9 +61,9 @@ static int  ft_check_lines(t_map *m)
         i++;
     }
     return (1);
-}
+}*/
 
-static int  ft_set_map(int fd, t_map **map, char *buf, char *str)
+static int  ft_set_map(int fd, t_map **map, char *str, char *buf)
 {
     t_map           *m;
     unsigned int    i;
@@ -76,11 +77,10 @@ static int  ft_set_map(int fd, t_map **map, char *buf, char *str)
     m->wall = str[i++] - '0';
     m->full = str[i] - '0';
     i = 0;
-    free (str);
     m->array = malloc(sizeof(char *) * m->nb_line + 1);
     if (!m->array)
     {
-        free (m);
+        //free (m);
         return (0);
     }
     while ((read(fd, buf, 1)) != 0 && i < m->nb_line)
@@ -89,42 +89,39 @@ static int  ft_set_map(int fd, t_map **map, char *buf, char *str)
 		{
 			str = ft_addchar(str, buf);
 			if (!str && i > 0)
-				return (ft_free(m, --i));
+				return (0);//return (ft_free(m, --i));
             else if (!str && i == 0)
-                return (ft_free(m, -1));
+                return (0);//return (ft_free(m, -1));
 		}
 		else
 		{
             m->array[i] = ft_strdup(str);
             if (!m->array[i])
             {
-                free (str);
-                return (ft_free(m, --i));
+                //free (str);
+                return (0);//return (ft_free(m, --i));
             }
             i++;
-			free(str);
+			//free(str);
 			str = malloc(sizeof(char));
 			str[0] = 0;
 		}
 	}
-    if (i != m->nb_line)
+    if (i != m->nb_line - 1)
     {
         free (str);
-        return (ft_free(m, i));
+        return (0);//return (ft_free(m, i));
     }
-    if (!ft_check_lines(m))
-    {
-        free (str);
-        return (ft_free(m, i));
-    }
+    //if (!ft_check_lines(m))
+   // {
+    //    free (str);
+    //    return (0);//return (ft_free(m, i));
+    //}
     m->array[i] = 0;
     *map = m;
-    free(str);
+    //free(str);
     return (1);
 }
-
-#include <stdio.h>
-
 static int ft_check_params(char *str)
 {
     unsigned int i;
@@ -132,18 +129,14 @@ static int ft_check_params(char *str)
 
     i = 0;
     j = 0;
-    printf("%s\n", str);
-    write(1, "1\n", 2);
     if (ft_atoi(str, &i) == 0)
         return (0);
-    write(1, "2\n", 2);
     while (str[i + j])
     {
         if (str[i + j] < 32 || str[i + j] == 127)
             return (0);
         j++;
     }
-    write(1, "3\n", 2);
     if (j != 3)
         return (0);
     return (1);
@@ -158,27 +151,23 @@ static int  ft_buffer(int fd, t_map **map)
     if (!str)
         return (0);
     str[0] = 0;
-    write(1, "b\n", 2);
     while ((read(fd, buf, 1)) != 0 && buf[0] != '\n')
 	{
 		str = ft_addchar(str, buf);
 		if (!str)
 			return (0);
 	}
-    write(1, "c\n", 2);
     if (!ft_strlen(str) || !ft_check_params(str))
     {
-        free(str);
+       // free(str);
         return (0);
     }
-    write(1, "d\n", 2);
     if (!ft_set_map(fd, map, str, buf))
     {
-        free(str);
+       // free(str);
         return (0);
     }
-    write(1, "e\n", 2);
-    free (str);
+   // free (str);
     return (1);
 }
 
@@ -186,13 +175,9 @@ int ft_check_map(char *path, t_map **map)
 {
     int fd;
 
-    write(1, "a\n", 2);
     fd = open(path, O_RDWR);
     if (fd != -1)
         if (ft_buffer(fd, map))
-        {
-            write(1, "b\n", 2);
             return (1);
-        }
     return (0);
 }

@@ -26,8 +26,7 @@ void    ft_print_map(t_map *map)
             write(1, &map->array[i][j], 1);
             j++;
         }
-        write (1, "\n", 1);
+        write(1, "\n", 1);
         i++;
     }
-    write (1, "\n", 1);
 }
