@@ -19,20 +19,22 @@ static int	ft_isdigit(int c)
 	return (0);
 }
 
-unsigned int	ft_atoi(char const *str, unsigned int *i)
+unsigned int	ft_atoi(char *str, unsigned int *i)
 {
 	unsigned int	res;
 	int				cpt;
 
 	res = 0;
-	i = 0;
+	*i = 0;
 	cpt = 0;
-	while (ft_isdigit(str[*i]))
+	write(1, "z\n", 2);
+	while (ft_isdigit(str[*i]) == 1)
 	{
 		res = res * 10 + str[*i] - 48;
 		if (++cpt > 19)
 			return (0);
-		i++;
+		*i = *i + 1;
 	}
+	write(1, "y\n", 2);
 	return (res);
 }

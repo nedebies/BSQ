@@ -123,6 +123,8 @@ static int  ft_set_map(int fd, t_map **map, char *buf, char *str)
     return (1);
 }
 
+#include <stdio.h>
+
 static int ft_check_params(char *str)
 {
     unsigned int i;
@@ -130,14 +132,18 @@ static int ft_check_params(char *str)
 
     i = 0;
     j = 0;
+    printf("%s\n", str);
+    write(1, "1\n", 2);
     if (ft_atoi(str, &i) == 0)
         return (0);
+    write(1, "2\n", 2);
     while (str[i + j])
     {
         if (str[i + j] < 32 || str[i + j] == 127)
             return (0);
         j++;
     }
+    write(1, "3\n", 2);
     if (j != 3)
         return (0);
     return (1);
@@ -152,22 +158,26 @@ static int  ft_buffer(int fd, t_map **map)
     if (!str)
         return (0);
     str[0] = 0;
+    write(1, "b\n", 2);
     while ((read(fd, buf, 1)) != 0 && buf[0] != '\n')
 	{
 		str = ft_addchar(str, buf);
 		if (!str)
 			return (0);
 	}
+    write(1, "c\n", 2);
     if (!ft_strlen(str) || !ft_check_params(str))
     {
         free(str);
         return (0);
     }
+    write(1, "d\n", 2);
     if (!ft_set_map(fd, map, str, buf))
     {
         free(str);
         return (0);
     }
+    write(1, "e\n", 2);
     free (str);
     return (1);
 }
@@ -176,9 +186,13 @@ int ft_check_map(char *path, t_map **map)
 {
     int fd;
 
+    write(1, "a\n", 2);
     fd = open(path, O_RDWR);
     if (fd != -1)
         if (ft_buffer(fd, map))
+        {
+            write(1, "b\n", 2);
             return (1);
+        }
     return (0);
 }

@@ -40,7 +40,7 @@ int ft_check_map(char *path, t_map **map);
 
 char	*ft_strdup(char *str);
 unsigned int	ft_strlen(char *str);
-unsigned int	ft_atoi(char const *str, unsigned int *i);
+unsigned int	ft_atoi(char *str, unsigned int *i);
 t_square	*find_square(char **map, char obstacle, int size_map);
 
 #endif
