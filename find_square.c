@@ -10,12 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-typedef struct s_up_left_corner_of_square
-{
-	int	size;
-	int	x_left;
-	int	y_up;
-}	t_square;
+#include "bsq->h"
+
 /**
 typedef struct s_point
 {
@@ -67,16 +63,16 @@ t_point	*store_obstacles(char **map, char obstacle)
 	return (list_obstacles);
 }**/
 
-int	check_possible_square(char **map, char obstacle, t_square bsq)
+static int	check_possible_square(char **map, char obstacle, t_square *bsq)
 {
 	int	x;
 	int	y;
 
-	x = bsq.x_left;
-	y = bsq.y_up;
-	while (y < bsq.y_up + bsq.size)
+	x = bsq->x_left;
+	y = bsq->y_up;
+	while (y < bsq->y_up + bsq->size)
 	{
-		while (x < bsq.x_left + bsq.size)
+		while (x < bsq->x_left + bsq->size)
 		{
 			if (map[x][y] == obstacle)
 				return (1);
@@ -89,19 +85,19 @@ int	check_possible_square(char **map, char obstacle, t_square bsq)
 
 t_square	*find_square(char **map, char obstacle, int size_map)
 {
-	t_square	bsq;
+	t_square	*bsq;
 
 	bsq = malloc(sizeof(bsq));
 	if (!bsq)
 		return (0);
 	bsq->size = size_map;
-	while (bsq.size > 0)
+	while (bsq->size > 0)
 	{
 		bsq->x_left = 0;
-		while (bsq->x_left < size_map - bsq.size)
+		while (bsq->x_left < size_map - bsq->size)
 		{
 			bsq->y_up = 0;
-			while (bsq->y_up < size_map - bsq.size)
+			while (bsq->y_up < size_map - bsq->size)
 			{
 				if (check_possible_square(map, obstacle, bsq) == 0)
 					return (bsq);

@@ -91,7 +91,7 @@ static int  ft_set_map(int fd, t_map **map, char *buf, char *str)
 			if (!str && i > 0)
 				return (ft_free(m, --i));
             else if (!str && i == 0)
-                return (ft_free(m, - 1));
+                return (ft_free(m, -1));
 		}
 		else
 		{

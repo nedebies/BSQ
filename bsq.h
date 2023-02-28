@@ -26,6 +26,13 @@ typedef struct s_map
     char    full;
 } t_map;
 
+typedef struct s_square
+{
+	int	size;
+	int	x_left;
+	int	y_up;
+}	t_square;
+
 int ft_free(t_map *map, int i);
 
 void    ft_print_map(t_map *map);
@@ -34,5 +41,6 @@ int ft_check_map(char *path, t_map **map);
 char	*ft_strdup(char *str);
 unsigned int	ft_strlen(char *str);
 unsigned int	ft_atoi(char const *str, unsigned int *i);
+t_square	*find_square(char **map, char obstacle, int size_map);
 
 #endif
