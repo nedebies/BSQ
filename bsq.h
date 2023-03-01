@@ -33,7 +33,7 @@ typedef struct s_point
 	int	y;
 }	t_point;
 
-int     ft_linelen(char *str);
+int		ft_linelen(char *str);
 char	*process_file(int fd, int fileSize);
 int		ft_first_line(char *str_map, t_map *map);
 t_map	*ft_map(char *file);
