@@ -26,7 +26,7 @@ void	ft_print_map(t_map *map, t_point p, int max)
 			if ((x < p.x - (max - 1) || x > p.x) || (y < p.y - (max - 1)
 					|| y > p.y))
 			{
-				if (map->array[y][x] == 0)
+				if (map->arr[y][x] == 0)
 					ft_putchar(map->wall);
 				else
 					ft_putchar(map->empty);

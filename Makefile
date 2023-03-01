@@ -2,6 +2,7 @@ SRC = 	./main.c \
 		./find_square.c \
 		./utils.c \
 		./ft_splint.c \
+		./ft_check_map.c \
 		./ft_map.c \
 		./ft_print_map.c
 

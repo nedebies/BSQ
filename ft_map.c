@@ -29,35 +29,6 @@ int	**ft_array(char *str, char obst, char empty)
 	return (mtx);
 }
 
-int	ft_check_map(char *str_map, t_map *map, int wall_count)
-{
-	int	i;
-	int	char_count;
-	int	line_count;
-
-	i = 0;
-	line_count = 0;
-	while (str_map[i] != '\n')
-		i++;
-	while (str_map[++i])
-	{
-		char_count = 0;
-		while (str_map[i] != '\n')
-		{
-			if (str_map[i] != map->wall && str_map[i] !=map->empty)
-            	return (0);
-			char_count++;
-			if (str_map[i] == map->wall)
-				wall_count++;
-			i++;
-		}
-		if (char_count != map->length || wall_count == map->length)
-			return (0);
-		line_count++;
-	}
-	return (line_count);
-}
-
 char	*process_file(int fd, int size)
 {
 	int		length;
@@ -86,26 +57,6 @@ int	ft_linelen(char *str)
 	while (str[len] && str[len] != '\n')
 		len++;
 	return (len);
-}
-
-int	ft_first_line(char *str_map, t_map *map)
-{
-	int	i;
-
-	i = 0;
-	while (str_map[i] && str_map[i] != '\n')
-		i++;
-	if (i < 4)
-		return (0);
-	map->full = str_map[i - 1];
-	map->wall = str_map[i - 2];
-	map->empty = str_map[i - 3];
-	map->nb_lines = ft_simple_atoi(str_map, (i - 3));
-	if (map->nb_lines <= 0 || map->wall == map->empty || map->wall == map->full
-		|| map->full == map->empty)
-		return (0);
-	map->length = ft_linelen(str_map + i + 1);
-	return (1);
 }
 
 int	ft_get_map_size(int *fd, char *filepath)
@@ -145,8 +96,8 @@ t_map	*ft_map(char *read_size)
 			return (NULL);
 		str_map = process_file(fd, ft_get_map_size(&fd, read_size));
 		if (ft_first_line(str_map, map)
-			   	 && ft_check_map(str_map, map, 0) == map->nb_lines)
-			map->array = ft_array(str_map, map->wall, map->empty);
+			&& ft_check_map(str_map, map, 0) == map->nb_lines)
+			map->arr = ft_array(str_map, map->wall, map->empty);
 		else
 		{
 			free(str_map);

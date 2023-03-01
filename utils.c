@@ -30,7 +30,7 @@ int	ft_strlen(char *str)
 int	ft_simple_atoi(char *str, int i)
 {
 	int	res;
-	int				cpt;
+	int	cpt;
 
 	res = 0;
 	i = 0;

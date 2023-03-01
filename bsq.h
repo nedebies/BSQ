@@ -6,7 +6,7 @@
 /*   By: nesdebie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 21:00:22 by nesdebie          #+#    #+#             */
-/*   Updated: 2023/03/01 08:00:16 by nesdebie         ###   ########.fr       */
+/*   Updated: 2023/03/01 10:39:06 by nesdebie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@
 
 typedef struct s_map
 {
-    int    **array;
-    int     nb_lines;
-    int     length;
-    char    wall;
-    char    empty;
-    char    full;
-} t_map;
+	int		**arr;
+	int		nb_lines;
+	int		length;
+	char	wall;
+	char	empty;
+	char	full;
+}	t_map;
 
 typedef struct s_point
 {
@@ -33,6 +33,7 @@ typedef struct s_point
 	int	y;
 }	t_point;
 
+int     ft_linelen(char *str);
 char	*process_file(int fd, int fileSize);
 int		ft_first_line(char *str_map, t_map *map);
 t_map	*ft_map(char *file);

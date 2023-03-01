@@ -24,7 +24,7 @@ int	main(int ac, char **av)
 		if (map)
 		{
 			ft_solve(map);
-			free(map->array);
+			free(map->arr);
 			free(map);
 		}
 		else
@@ -33,7 +33,7 @@ int	main(int ac, char **av)
 			write(1, "\n", 1);
 		i++;
 	}
-    if (ac == 1)
-		write(1, "todo\n", 5);//TODO
+	if (ac == 1)
+		write(1, "todo\n", 5);
 	return (0);
 }
