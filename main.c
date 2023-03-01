@@ -6,15 +6,15 @@
 /*   By: nesdebie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 20:59:58 by nesdebie          #+#    #+#             */
-/*   Updated: 2023/03/01 07:53:00 by nesdebie         ###   ########.fr       */
+/*   Updated: 2023/03/01 11:35:41 by nesdebie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bsq.h"
 
-void ft_free(t_map *map)
+void	ft_free(t_map *map)
 {
-	int i;
+	int	i;
 
 	i = map->nb_lines;
 	while (i >= 0)
@@ -47,6 +47,6 @@ int	main(int ac, char **av)
 		i++;
 	}
 	if (ac == 1)
-		write(1, "todo\n", 5);
+		ft_stdin();
 	return (0);
 }

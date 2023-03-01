@@ -13,6 +13,7 @@
 #ifndef BSQ_H
 # define BSQ_H
 
+# define BUFFER_MAX 1024
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdlib.h>
@@ -32,6 +33,12 @@ typedef struct s_point
 	int	x;
 	int	y;
 }	t_point;
+
+void	ft_free(t_map *map);
+
+char	*ft_stdin_to_str(int fd);
+t_map	*ft_stdin_to_map(void);
+void	ft_stdin(void);
 
 int		ft_linelen(char *str);
 char	*process_file(int fd, int fileSize);

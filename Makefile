@@ -4,6 +4,7 @@ SRC = 	./main.c \
 		./ft_splint.c \
 		./ft_check_map.c \
 		./ft_map.c \
+		./ft_map_stdin.c \
 		./ft_print_map.c
 
 NAME = bsq
