@@ -16,7 +16,7 @@ void	ft_free(t_map *map)
 {
 	int	i;
 
-	i = map->nb_lines;
+	i = map->nb_lines - 1;
 	while (i >= 0)
 	{
 		if (map->arr[i])
@@ -40,8 +40,7 @@ int	main(int ac, char **av)
 		if (map)
 		{
 			ft_solve(map);
-			if (map->free_flag == 0)
-				ft_free(map);
+			ft_free(map);
 		}
 		else
 			write(1, "map error\n", 10);

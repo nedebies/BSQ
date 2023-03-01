@@ -19,6 +19,7 @@ char	*ft_stdin_to_str(int fd)
 	char	*str;
 
 	str = malloc(sizeof(char) * 1);
+	printf("ft_stdin_to_str %p\n", str);
 	if (!str)
 		return (NULL);
 	str[0] = 0;
@@ -38,6 +39,7 @@ t_map	*ft_stdin_to_map(void)
 	char	*str_map;
 
 	map = malloc(sizeof(t_map));
+	printf("ft_stdin_to_map %p\n", map);
 	if (!map)
 		return (NULL);
 	str_map = ft_stdin_to_str(0);

@@ -57,6 +57,7 @@ static int	*get_next_tab(int *index, char *str, char *charset, char buf[2])
 	while (!char_is_in_charset(str[*index + len], charset) && str[*index + len])
 		len++;
 	res = (int *)malloc((len) * sizeof(int));
+	printf("get_next_tab %p\n", res);
 	if (!res)
 		return (NULL);
 	while (i < len)
@@ -82,6 +83,7 @@ int	**ft_splint(char *str, char *charset, char buf[2])
 	j = 0;
 	ac = word_count(str, charset);
 	res = (int **)malloc(ac * sizeof(int *));
+	printf("ft_splint %p\n", res);
 	if (!res)
 		return (NULL);
 	while (i < ac)
