@@ -47,5 +47,5 @@ void	ft_solve(t_map *map)
 			}
 		}
 	}
-	ft_print_map(map, max_pt, max);
+	ft_print_map(map, max_pt, max, 0);
 }

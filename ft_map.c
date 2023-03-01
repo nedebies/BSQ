@@ -43,7 +43,7 @@ char	*process_file(int fd, int size)
 	length = 1;
 	while (length > 0)
 	{
-		length = read(fd, str + i, 1024);
+		length = read(fd, str + i, BUFFER_MAX);
 		i += length;
 	}
 	*(str + i) = 0;
@@ -102,6 +102,7 @@ t_map	*ft_map(char *read_size)
 		else
 		{
 			free(str_map);
+			free(map);
 			return (0);
 		}
 	}

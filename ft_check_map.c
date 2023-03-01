@@ -34,7 +34,7 @@ int	ft_check_map(char *str_map, t_map *map, int wall_count)
 				wall_count++;
 			i++;
 		}
-		if (char_count != map->length || wall_count == map->length)
+		if (char_count != map->length || wall_count == map->length * map->nb_lines)
 			return (0);
 		line_count++;
 	}
@@ -50,6 +50,7 @@ int	ft_first_line(char *str_map, t_map *map)
 		i++;
 	if (i < 4)
 		return (0);
+	map->free_flag = 0;
 	map->full = str_map[i - 1];
 	map->wall = str_map[i - 2];
 	map->empty = str_map[i - 3];

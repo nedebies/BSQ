@@ -12,30 +12,36 @@
 
 #include "bsq.h"
 
-void	ft_print_map(t_map *map, t_point p, int max)
+static void	ft_print_no_square(t_map *map, int x, int y)
+{
+	if (map->arr[y][x] == 0)
+		ft_putchar(map->wall);
+	else
+		ft_putchar(map->empty);
+}
+
+void	ft_print_map(t_map *map, t_point p, int max, int flag_cpt)
 {
 	int	x;
 	int	y;
 
-	y = 0;
-	while (y < map->nb_lines)
+	y = -1;
+	while (++y < map->nb_lines)
 	{
-		x = 0;
-		while (x < map->length)
+		x = -1;
+		while (++x < map->length)
 		{
 			if ((x < p.x - (max - 1) || x > p.x) || (y < p.y - (max - 1)
 					|| y > p.y))
-			{
-				if (map->arr[y][x] == 0)
-					ft_putchar(map->wall);
-				else
-					ft_putchar(map->empty);
-			}
+				ft_print_no_square(map, x, y);
 			else
+			{
 				ft_putchar(map->full);
-			x++;
+				flag_cpt++;
+			}
 		}
 		ft_putchar('\n');
-		y++;
 	}
+	if (flag_cpt == map->nb_lines * map->length)
+		map->free_flag = 1;
 }

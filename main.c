@@ -19,10 +19,12 @@ void	ft_free(t_map *map)
 	i = map->nb_lines;
 	while (i >= 0)
 	{
-		free(map->arr[i]);
+		if (map->arr[i])
+			free(map->arr[i]);
 		i--;
 	}
-	free(map->arr);
+	if (map->arr)
+		free(map->arr);
 	free(map);
 }
 
@@ -38,7 +40,8 @@ int	main(int ac, char **av)
 		if (map)
 		{
 			ft_solve(map);
-			ft_free(map);
+			if (map->free_flag == 0)
+				ft_free(map);
 		}
 		else
 			write(1, "map error\n", 10);
@@ -48,5 +51,6 @@ int	main(int ac, char **av)
 	}
 	if (ac == 1)
 		ft_stdin();
+	system("leaks bsq");
 	return (0);
 }
