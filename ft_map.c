@@ -129,6 +129,7 @@ int	ft_get_map_size(int *fd, char *filepath)
 	return (len);
 }
 
+/**cas d'une map full obstacle à gérer**/
 t_map	*ft_map(char *read_size)
 {
 	t_map	*map;
