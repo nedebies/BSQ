@@ -29,7 +29,7 @@ int	**ft_array(char *str, char obst, char empty)
 	return (mtx);
 }
 
-int	ft_check_map(char *str_map, t_map *map)
+int	ft_check_map(char *str_map, t_map *map, int wall_count)
 {
 	int	i;
 	int	char_count;
@@ -39,8 +39,7 @@ int	ft_check_map(char *str_map, t_map *map)
 	line_count = 0;
 	while (str_map[i] != '\n')
 		i++;
-	i++;
-	while (str_map[i])
+	while (str_map[++i])
 	{
 		char_count = 0;
 		while (str_map[i] != '\n')
@@ -48,12 +47,13 @@ int	ft_check_map(char *str_map, t_map *map)
 			if (str_map[i] != map->wall && str_map[i] !=map->empty)
             	return (0);
 			char_count++;
+			if (str_map[i] == map->wall)
+				wall_count++;
 			i++;
 		}
-		if (char_count != map->length)
+		if (char_count != map->length || wall_count == map->length)
 			return (0);
 		line_count++;
-		i++;
 	}
 	return (line_count);
 }
@@ -129,7 +129,6 @@ int	ft_get_map_size(int *fd, char *filepath)
 	return (len);
 }
 
-/**cas d'une map full obstacle à gérer**/
 t_map	*ft_map(char *read_size)
 {
 	t_map	*map;
@@ -146,7 +145,7 @@ t_map	*ft_map(char *read_size)
 			return (NULL);
 		str_map = process_file(fd, ft_get_map_size(&fd, read_size));
 		if (ft_first_line(str_map, map)
-			   	 && ft_check_map(str_map, map) == map->nb_lines)
+			   	 && ft_check_map(str_map, map, 0) == map->nb_lines)
 			map->array = ft_array(str_map, map->wall, map->empty);
 		else
 		{
