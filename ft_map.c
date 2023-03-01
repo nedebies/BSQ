@@ -38,7 +38,6 @@ char	*process_file(int fd, int size)
 
 	i = 0;
 	str = malloc(sizeof(char) * (size + 1));
-	printf("process_file %p\n", str);
 	if (!str)
 		return (NULL);
 	length = 1;
@@ -94,7 +93,6 @@ t_map	*ft_map(char *read_size)
 	else
 	{
 		map = malloc(sizeof(t_map));
-		printf("ft_map %p\n", map);
 		if (!map)
 			return (NULL);
 		str_map = process_file(fd, ft_get_map_size(&fd, read_size));

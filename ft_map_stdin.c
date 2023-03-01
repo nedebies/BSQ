@@ -19,7 +19,6 @@ char	*ft_stdin_to_str(int fd)
 	char	*str;
 
 	str = malloc(sizeof(char) * 1);
-	printf("ft_stdin_to_str %p\n", str);
 	if (!str)
 		return (NULL);
 	str[0] = 0;
@@ -39,13 +38,12 @@ t_map	*ft_stdin_to_map(void)
 	char	*str_map;
 
 	map = malloc(sizeof(t_map));
-	printf("ft_stdin_to_map %p\n", map);
 	if (!map)
 		return (NULL);
 	str_map = ft_stdin_to_str(0);
 	if (ft_first_line(str_map, map)
 		&& ft_check_map(str_map, map, 0) == map->nb_lines)
-		map->arr = ft_array(str_map, map->full, map->empty);
+		map->arr = ft_array(str_map, map->wall, map->empty);
 	else
 	{
 		free(str_map);
