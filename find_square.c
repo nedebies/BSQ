@@ -6,7 +6,7 @@
 /*   By: kdegryse <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 16:06:06 by kdegryse          #+#    #+#             */
-/*   Updated: 2023/02/28 08:16:06 by kdegryse         ###   ########.fr       */
+/*   Updated: 2023/02/28 19:06:10 by kdegryse         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,76 @@ static int	check_possible_square(char **map, char obstacle, t_square *bsq)
 	return (0);
 }
 
+static int	min_max(int *max_size_line)
+{
+	int	max;
+	int	i;
+	int	count;
+
+	i = 0;
+	max = 0;
+	while (max_size_line[i])
+		if (max_size_line[i] > max)
+			max = max_size_line[i];
+	while (count < max)
+	{
+		count = 0;
+		i = 0;
+		while (max_size_line[i])
+		{
+			if (max_size_line[i] > max)
+				count++;
+			i++;
+		}
+		if (count < max)
+			max--;
+	}
+	return (max);
+}
+
+static int	*count_max_line(int *max_size, char **map, char obstacle, int i)
+{
+	int	j;
+	int	count;
+
+	count = 0;
+	j = 0;
+	max_size[i] = 0;
+	while (map[i][j])
+	{
+		if (map[i][j] == obstacle)
+		{
+			if (count > max_size[i])
+				max_size[i] = count;
+			count = 0;
+		}
+		else
+			count++;
+		j++;
+	}
+	return (max_size);
+}
+
+static int	max_possible_square(char **map, char obstacle)
+{
+	int	*max_size_line;
+	int	i;
+	int	max_size;
+
+	i = 0;
+	while (map[i])
+		i++;
+	max_size_line = malloc(sizeof(int) * i);
+	while (map[i])
+	{
+		max_size_line = count_max_line(max_size_line, map, obstacle, i);
+		i--;
+	}
+	max_size = min_max(max_size_line);
+	free(max_size_line);
+	return (max_size);
+}
+
 t_square	*find_square(char **map, char obstacle, int size_map)
 {
 	t_square	*bsq;
@@ -90,20 +160,20 @@ t_square	*find_square(char **map, char obstacle, int size_map)
 	bsq = malloc(sizeof(bsq));
 	if (!bsq)
 		return (0);
-	bsq->size = size_map;
+	bsq->size = max_possible_square(map, obstacle);
 	while (bsq->size > 0)
 	{
-		bsq->x_left = 0;
-		while (bsq->x_left < size_map - bsq->size)
+		bsq->y_up = 0;
+		while (bsq->y_up < size_map - bsq->size)
 		{
-			bsq->y_up = 0;
-			while (bsq->y_up < size_map - bsq->size)
+			bsq->x_left = 0;
+			while (bsq->x_left < size_map - bsq->size)
 			{
 				if (check_possible_square(map, obstacle, bsq) == 0)
 					return (bsq);
-				bsq->y_up++;
+				bsq->x_left++;
 			}
-			bsq->x_left++;
+			bsq->y_up++;
 		}
 		bsq->size--;
 	}
