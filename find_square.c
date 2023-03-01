@@ -3,14 +3,52 @@
 /*                                                        :::      ::::::::   */
 /*   find_square.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kdegryse <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: nesdebie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 16:06:06 by kdegryse          #+#    #+#             */
-/*   Updated: 2023/02/28 19:06:10 by kdegryse         ###   ########.fr       */
+/*   Updated: 2023/03/01 07:58:15 by nesdebie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bsq.h"
+
+static int	ft_minimum(int a, int b, int c)
+{
+	if (a <= c && a <= b)
+		return (a);
+	else if (b <= a && b <= c)
+		return (b);
+	else
+		return (c);
+}
+
+void	ft_solve(t_map *map)
+{
+	int		i;
+	int		j;
+	int		max;
+	t_point	max_pt;
+
+	j = -1;
+	max = -1;
+	while (++j < map->nb_lines)
+	{
+		i = -1;
+		while (++i < map->length)
+		{
+			if (map->array[j][i] == 1 && i > 0 && j > 0)
+				map->array[j][i] = ft_minimum(map->array[j - 1][i], map->array[j][i - 1],
+						map->array[j - 1][i - 1]) + 1;
+			if (max < map->array[j][i])
+			{
+				max = map->array[j][i];
+				max_pt.x = i;
+				max_pt.y = j;
+			}
+		}
+	}
+	ft_print_map(map, max_pt, max);
+}
 
 /**
 typedef struct s_point
@@ -61,7 +99,7 @@ t_point	*store_obstacles(char **map, char obstacle)
 		i++;
 	}
 	return (list_obstacles);
-}**/
+}
 
 static int	check_possible_square(char **map, char obstacle, t_square *bsq)
 {
@@ -83,76 +121,6 @@ static int	check_possible_square(char **map, char obstacle, t_square *bsq)
 	return (0);
 }
 
-static int	min_max(int *max_size_line)
-{
-	int	max;
-	int	i;
-	int	count;
-
-	i = 0;
-	max = 0;
-	while (max_size_line[i])
-		if (max_size_line[i] > max)
-			max = max_size_line[i];
-	while (count < max)
-	{
-		count = 0;
-		i = 0;
-		while (max_size_line[i])
-		{
-			if (max_size_line[i] > max)
-				count++;
-			i++;
-		}
-		if (count < max)
-			max--;
-	}
-	return (max);
-}
-
-static int	*count_max_line(int *max_size, char **map, char obstacle, int i)
-{
-	int	j;
-	int	count;
-
-	count = 0;
-	j = 0;
-	max_size[i] = 0;
-	while (map[i][j])
-	{
-		if (map[i][j] == obstacle)
-		{
-			if (count > max_size[i])
-				max_size[i] = count;
-			count = 0;
-		}
-		else
-			count++;
-		j++;
-	}
-	return (max_size);
-}
-
-static int	max_possible_square(char **map, char obstacle)
-{
-	int	*max_size_line;
-	int	i;
-	int	max_size;
-
-	i = 0;
-	while (map[i])
-		i++;
-	max_size_line = malloc(sizeof(int) * i);
-	while (map[i])
-	{
-		max_size_line = count_max_line(max_size_line, map, obstacle, i);
-		i--;
-	}
-	max_size = min_max(max_size_line);
-	free(max_size_line);
-	return (max_size);
-}
-
 t_square	*find_square(char **map, char obstacle, int size_map)
 {
 	t_square	*bsq;
@@ -160,22 +128,22 @@ t_square	*find_square(char **map, char obstacle, int size_map)
 	bsq = malloc(sizeof(bsq));
 	if (!bsq)
 		return (0);
-	bsq->size = max_possible_square(map, obstacle);
+	bsq->size = size_map;
 	while (bsq->size > 0)
 	{
-		bsq->y_up = 0;
-		while (bsq->y_up < size_map - bsq->size)
+		bsq->x_left = 0;
+		while (bsq->x_left < size_map - bsq->size)
 		{
-			bsq->x_left = 0;
-			while (bsq->x_left < size_map - bsq->size)
+			bsq->y_up = 0;
+			while (bsq->y_up < size_map - bsq->size)
 			{
 				if (check_possible_square(map, obstacle, bsq) == 0)
 					return (bsq);
-				bsq->x_left++;
+				bsq->y_up++;
 			}
-			bsq->y_up++;
+			bsq->x_left++;
 		}
 		bsq->size--;
 	}
 	return (0);
-}
+}**/

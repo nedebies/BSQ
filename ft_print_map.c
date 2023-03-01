@@ -6,27 +6,36 @@
 /*   By: nesdebie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 23:21:02 by nesdebie          #+#    #+#             */
-/*   Updated: 2023/02/27 23:28:46 by nesdebie         ###   ########.fr       */
+/*   Updated: 2023/03/01 07:48:32 by nesdebie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "bsq.h"
 
-void    ft_print_map(t_map *map)
+void	ft_print_map(t_map *map, t_point p, int max)
 {
-    int i;
-    int j;
+	int	x;
+	int	y;
 
-    i = 0;
-    while (map->array[i])
-    {
-        j = 0;
-        while (map->array[i][j])
-        {
-            write(1, &map->array[i][j], 1);
-            j++;
-        }
-        write(1, "\n", 1);
-        i++;
-    }
+	y = 0;
+	while (y < map->nb_lines)
+	{
+		x = 0;
+		while (x < map->length)
+		{
+			if ((x < p.x - (max - 1) || x > p.x) || (y < p.y - (max - 1)
+					|| y > p.y))
+			{
+				if (map->array[y][x] == 0)
+					ft_putchar(map->wall);
+				else
+					ft_putchar(map->empty);
+			}
+			else
+				ft_putchar(map->full);
+			x++;
+		}
+		ft_putchar('\n');
+		y++;
+	}
 }

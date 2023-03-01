@@ -1,8 +1,8 @@
 SRC = 	./main.c \
-		./ft_check_map.c \
-		./ft_strlen.c \
-		./ft_atoi.c \
-		./ft_strdup.c \
+		./find_square.c \
+		./utils.c \
+		./ft_splint.c \
+		./ft_map.c \
 		./ft_print_map.c
 
 NAME = bsq
