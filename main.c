@@ -12,6 +12,20 @@
 
 #include "bsq.h"
 
+void ft_free(t_map *map)
+{
+	int i;
+
+	i = map->nb_lines;
+	while (i >= 0)
+	{
+		free(map->arr[i]);
+		i--;
+	}
+	free(map->arr);
+	free(map);
+}
+
 int	main(int ac, char **av)
 {
 	int		i;
@@ -24,8 +38,7 @@ int	main(int ac, char **av)
 		if (map)
 		{
 			ft_solve(map);
-			free(map->arr);
-			free(map);
+			ft_free(map);
 		}
 		else
 			write(1, "map error\n", 10);

@@ -24,6 +24,7 @@ int	**ft_array(char *str, char obst, char empty)
 	while (str[i] && str[i] != '\n')
 		i++;
 	mtx = ft_splint(str + i, "\n", chrs);
+	free(str);
 	if (!mtx)
 		return (NULL);
 	return (mtx);
