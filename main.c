@@ -6,7 +6,7 @@
 /*   By: nesdebie <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/02/27 20:59:58 by nesdebie          #+#    #+#             */
-/*   Updated: 2023/03/01 11:35:41 by nesdebie         ###   ########.fr       */
+/*   Updated: 2023/03/01 15:52:27 by nesdebie         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,5 @@ int	main(int ac, char **av)
 	}
 	if (ac == 1)
 		ft_stdin();
-	system("leaks bsq");
 	return (0);
 }

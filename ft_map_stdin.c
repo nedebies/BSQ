@@ -42,7 +42,7 @@ t_map	*ft_stdin_to_map(void)
 		return (NULL);
 	str_map = ft_stdin_to_str(0);
 	if (ft_first_line(str_map, map)
-		&& ft_check_map(str_map, map, 0) == map->nb_lines)
+		&& ft_check_map(str_map, map) == map->nb_lines)
 		map->arr = ft_array(str_map, map->wall, map->empty);
 	else
 	{

@@ -20,7 +20,7 @@ static void	ft_print_no_square(t_map *map, int x, int y)
 		ft_putchar(map->empty);
 }
 
-void	ft_print_map(t_map *map, t_point p, int max, int flag_cpt)
+void	ft_print_map(t_map *map, t_point p, int max)
 {
 	int	x;
 	int	y;
@@ -35,13 +35,8 @@ void	ft_print_map(t_map *map, t_point p, int max, int flag_cpt)
 					|| y > p.y))
 				ft_print_no_square(map, x, y);
 			else
-			{
 				ft_putchar(map->full);
-				flag_cpt++;
-			}
 		}
 		ft_putchar('\n');
 	}
-	if (flag_cpt == map->nb_lines * map->length)
-		map->free_flag = 1;
 }

@@ -20,7 +20,6 @@
 
 typedef struct s_map
 {
-	int		free_flag;
 	int		**arr;
 	int		nb_lines;
 	int		length;
@@ -45,11 +44,11 @@ int		ft_linelen(char *str);
 char	*process_file(int fd, int fileSize);
 int		ft_first_line(char *str_map, t_map *map);
 t_map	*ft_map(char *file);
-void	ft_print_map(t_map *map, t_point p, int max, int flag_cpt);
+void	ft_print_map(t_map *map, t_point p, int max);
 int		**ft_array(char *str, char obst, char empty);
 void	ft_solve(t_map *map);
 int		ft_get_line_length(char *str);
-int		ft_check_map(char *str_map, t_map *map, int wall_count);
+int		ft_check_map(char *str_map, t_map *map);
 
 int		ft_simple_atoi(char *str, int n);
 int		**ft_splint(char *str, char *charset, char chrs[2]);
